@@ -22,7 +22,7 @@ Read the [manual](http://www.da.isy.liu.se/courses/tsea28/laborationer/mikrokomp
 
 # Constants
 
-Constants are also supported in order to avoid mistakes and more readable code:
+Constants are also supported in order to avoid mistakes and make the code more readable:
 
 ```Verilog
 CONSTANTS:
