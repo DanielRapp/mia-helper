@@ -4,7 +4,7 @@ This is a helper program designed for the TSEA83 to make programming the MIA-sys
 
 ## Syntax
 
-Inside [`example.v`](https://github.com/DanielRapp/mia-helper/blob/master/example.v) is an example program that prints `1337` (base 16) in memory at adress 0-42 (base 16).
+Inside [`example.v`](https://github.com/DanielRapp/mia-helper/blob/master/example.v) is an example program that prints `1337` (base 16) in memory at address 0-42 (base 16).
 
 # Labels
 
