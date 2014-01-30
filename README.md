@@ -9,9 +9,9 @@ Inside [`example.v`](https://github.com/DanielRapp/mia-helper/blob/master/exampl
 # Labels
 
 Since it doesn't force (or even allow) you to place rownumbers for indicating where microinstructions should lie in the micromemory, you can use labels instead:
-Read the [manual](http://www.da.isy.liu.se/courses/tsea28/laborationer/mikrokomp_2013-v2.pdf) for instructions on what each field (like `TB` and `FB` does).
 
 ```Verilog
+MyM:
 SEQ:0101, myADR:JUMP_HERE
 
 SEQ:1111
@@ -21,9 +21,29 @@ SEQ:1111
 P:1
 ```
 
+Read the [manual](http://www.da.isy.liu.se/courses/tsea28/laborationer/mikrokomp_2013-v2.pdf) for instructions on what each field (like `TB` and `FB` does).
+
 # Constants
 
-Constants are supported in order to avoid mistakes and more readable code, see [`example.v`](https://github.com/DanielRapp/mia-helper/blob/master/example.v).
+Constants are also supported in order to avoid mistakes and more readable code:
+
+```Verilog
+CONSTANTS:
+jmp_to_myADR=0101
+halt=1111
+pc_increment=1
+
+MyM:
+SEQ:jmp_to_myADR, myADR:JUMP_HERE
+
+SEQ:halt
+
+--JUMP_HERE--
+
+P:pc_increment
+```
+
+See [`example.v`](https://github.com/DanielRapp/mia-helper/blob/master/example.v) for more.
 
 # Setup
 Before doing anything, run `make init liu_id=LIUID`, replacing `LIUID` with your own.
