@@ -13,11 +13,8 @@ Since it doesn't force (or even allow) you to place rownumbers for indicating wh
 ```Verilog
 MyM:
 SEQ:0101, myADR:JUMP_HERE
-
 SEQ:1111
-
 --JUMP_HERE--
-
 P:1
 ```
 
@@ -35,11 +32,8 @@ pc_increment=1
 
 MyM:
 SEQ:jmp_to_myADR, myADR:JUMP_HERE
-
 SEQ:halt
-
 --JUMP_HERE--
-
 P:pc_increment
 ```
 
