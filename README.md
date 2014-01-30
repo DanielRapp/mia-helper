@@ -28,13 +28,13 @@ Constants are also supported in order to avoid mistakes and more readable code:
 CONSTANTS:
 jmp_to_myADR=0101
 halt=1111
-pc_increment=1
+increment=1
 
 MyM:
 SEQ:jmp_to_myADR, myADR:JUMP_HERE
 SEQ:halt
 --JUMP_HERE--
-P:pc_increment
+P:increment
 ```
 
 See [`example.v`](https://github.com/DanielRapp/mia-helper/blob/master/example.v) for more.
