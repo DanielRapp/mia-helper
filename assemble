@@ -1,0 +1,115 @@
+#!/usr/local/bin/python3
+
+import sys
+
+def pretty_hex(decimal, length=2):
+	h = hex(decimal)[2:]
+	return h.zfill(length)
+
+def calculate_effective_myADR(value, labels):
+	return bin(labels[value])[2:].zfill(7)
+
+def convert_myM_to_mia(line, labels, constants):
+	parts_type = {
+			"ALU": 0, "TB": 4, "FB": 7,
+			"S": 10, "P": 11, "LC": 12,
+			"SEQ": 14, "myADR": 18, "CONST": 9
+	}
+
+	converted_line = "0"*25
+	parts = line.split(", ")
+
+	for part in parts:
+		key_value = part.split(":")
+
+		if key_value[0] == "myADR":
+			key_value[1] = calculate_effective_myADR(key_value[1], labels)
+		elif not key_value[1][0].isdigit():
+			key_value[1] = constants[key_value[1]]
+
+		converted_line = \
+			converted_line[0:parts_type[key_value[0]]] + \
+			key_value[1] + \
+			converted_line[parts_type[key_value[0]]+len(key_value[1]):]
+
+	return pretty_hex(int(converted_line, 2), 7)
+
+def convert_to_mia(header, line, line_num, labels, constants):
+	if header == "MyM":
+		return pretty_hex(line_num) + ': ' + convert_myM_to_mia(line, labels, constants)
+	elif header == "PM":
+		return pretty_hex(line_num) + ': ' + line
+	elif header == "K1" or header == "K2":
+		return pretty_hex(line_num) + ': ' + pretty_hex(labels[line])
+	else:
+		return line
+
+def get_all_labels(lines):
+	labels = dict()
+	line_num = 0
+
+	for line in lines:
+		if len(line) != 0:
+			if line[0] == "-":
+				labels[line[2:-2]] = line_num
+			else:
+				line_num += 1
+
+	return labels
+
+def get_all_constants(lines):
+	constants = dict()
+
+	for line in lines:
+		if len(line) != 0:
+			key_value = line.split("=")
+			constants[key_value[0]] = key_value[1]
+
+	return constants
+
+def assemble(string):
+	labels = dict()
+	constants = dict()
+	
+	for block in string.split("\n\n"):
+		lines = block.split("\n")
+		header = lines[0][:-1]
+		if header == "CONSTANTS":
+			constants = get_all_constants(lines[1:])
+
+	for block in string.split("\n\n"):
+		lines = block.split("\n")
+		header = lines[0][:-1]
+
+		if header == "MyM":
+			labels = get_all_labels(lines[1:])
+
+		if header != "CONSTANTS":
+			print(header + ":")
+
+			line_num = 0
+			for line in lines[1:]:
+				if line != "" and line[0] != "-":
+					print(convert_to_mia(header, line, line_num, labels, constants))
+					line_num += 1
+
+			# Fill rest of memory
+			if header == "PM":
+				for line in range(0xff - len(lines[1:]) + 1):
+					print(convert_to_mia("PM", "0000", line_num, labels, constants))
+					line_num += 1
+
+			elif header == "MyM":
+				for line in range(0x7f - len(lines[1:]) + len(labels) + 1):
+					print(convert_to_mia("PM", "0000000", line_num, labels, constants))
+					line_num += 1
+
+			elif header == "K1":
+				for line in range(0x0f - len(lines[1:]) + 1):
+					print(convert_to_mia("PM", "00", line_num, labels, constants))
+					line_num += 1
+
+			print()
+
+with open(sys.argv[1], 'r') as f:
+	assemble(f.read())
