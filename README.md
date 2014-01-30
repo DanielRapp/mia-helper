@@ -53,4 +53,4 @@ If you set the environment variable `liu_id` to your LiU id (with `export liu_id
 * To compile a program, run `make compile prog=PROG_NAME`, replacing `PROG_NAME` with your program.
 * To sync all programs, run `make sync liu_id=LIUID`.
 * To run a program, run `make run liu_id=LIUID prog=PROG_NAME`, note that this will also sync all files.
-* To simply compile, sync and run a program one after another, just run `make prog=PROG_NAME liu_id=danth407`.
+* To simply compile, sync and run a program one after another, just run `make prog=PROG_NAME liu_id=LIUID`.
