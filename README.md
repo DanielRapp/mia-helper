@@ -1,6 +1,6 @@
 # What is this?
 
-This is a helper program designed for the TSEA83 to make programming the MIA-system easier. It allows you to convert something like: `TB:tb_pm, FB:fb_ir` into something understandable by the MIA-system: `0088000`
+This is a helper program designed for TSEA83 to make programming the MIA-system easier. It allows you to convert something like: `TB:tb_pm, FB:fb_ir` into something understandable by the MIA-system: `0088000`
 
 ## Syntax
 
@@ -18,7 +18,7 @@ SEQ:1111
 P:1
 ```
 
-Read the [manual](http://www.da.isy.liu.se/courses/tsea28/laborationer/mikrokomp_2013-v2.pdf) for instructions on what each field (like `TB` and `FB` does).
+Read the [manual](http://www.da.isy.liu.se/courses/tsea28/laborationer/mikrokomp_2013-v2.pdf) for instructions on what each field (like `TB` and `FB`) does.
 
 # Constants
 
