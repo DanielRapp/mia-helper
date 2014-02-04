@@ -42,7 +42,7 @@ See [`example.v`](https://github.com/DanielRapp/mia-helper/blob/master/example.v
 # Setup
 Before doing anything, run `make init liu_id=LIUID`, replacing `LIUID` with your own.
 
-Don't forget to make the `assemble` file executable with, for instance, `chmod 777 assemble`.
+Don't forget to make the `assemble` file executable with, for instance, `chmod +x assemble`.
 
 ## Tips
 Make your life easier by using ssh-keys instead of password for logging in with [this guide](https://www.digitalocean.com/community/articles/how-to-set-up-ssh-keys--2). (Or just run `cat ~/.ssh/id_rsa.pub | ssh LIU_ID@ixtab.edu.isy.liu.se "cat >> ~/.ssh/authorized_keys"`, replacing `LIUID` with your own.)
